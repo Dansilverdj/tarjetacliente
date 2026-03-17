@@ -163,3 +163,4 @@ El cliente puede:
 ## Módulo MKT con IA
 
 El endpoint `/api/ai-mkt` usa Claude Sonnet para generar estrategias de marketing personalizadas basadas en las métricas reales del negocio. Las campañas generadas se guardan en la tabla `campaigns` con `ai_generated = true`.
+// trigger deploy
