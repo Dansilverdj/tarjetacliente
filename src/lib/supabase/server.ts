@@ -12,14 +12,15 @@ export async function createClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        // Usamos any[] para silenciar los 8 errores de golpe
-        setAll(cookiesToSet: any[]) {
+        // Usamos la sintaxis más simple posible para Vercel
+        setAll(cookiesToSet: any) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
-            // Se ignora en Server Components
+            cookiesToSet.forEach((cookie: any) => {
+              const { name, value, options } = cookie;
+              cookieStore.set(name, value, options);
+            });
+          } catch (error) {
+            // Silenciamos errores en Server Components
           }
         },
       },
@@ -38,14 +39,14 @@ export async function createServiceClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        // Aplicamos lo mismo aquí
-        setAll(cookiesToSet: any[]) {
+        setAll(cookiesToSet: any) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
-            // Se ignora en Server Components
+            cookiesToSet.forEach((cookie: any) => {
+              const { name, value, options } = cookie;
+              cookieStore.set(name, value, options);
+            });
+          } catch (error) {
+            // Silenciamos errores en Server Components
           }
         },
       },
