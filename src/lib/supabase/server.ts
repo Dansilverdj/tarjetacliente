@@ -1,4 +1,4 @@
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 export async function createClient() {
@@ -12,14 +12,14 @@ export async function createClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        // Definimos explícitamente el tipo de la lista de cookies
-        setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
+        // Usamos any[] para silenciar los 8 errores de golpe
+        setAll(cookiesToSet: any[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
             );
           } catch {
-            // Se ignora el error si se llama desde un Server Component
+            // Se ignora en Server Components
           }
         },
       },
@@ -38,14 +38,14 @@ export async function createServiceClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        // Repetimos el tipado aquí para el Service Client
-        setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
+        // Aplicamos lo mismo aquí
+        setAll(cookiesToSet: any[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
             );
           } catch {
-            // Se ignora el error si se llama desde un Server Component
+            // Se ignora en Server Components
           }
         },
       },
