@@ -12,13 +12,14 @@ export async function createClient() {
         getAll() {
           return cookieStore.getAll();
         },
+        // Definimos explícitamente el tipo de la lista de cookies
         setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
             );
           } catch {
-            // Se ignora si se llama desde un Server Component
+            // Se ignora el error si se llama desde un Server Component
           }
         },
       },
@@ -37,13 +38,14 @@ export async function createServiceClient() {
         getAll() {
           return cookieStore.getAll();
         },
+        // Repetimos el tipado aquí para el Service Client
         setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
             );
           } catch {
-            // Se ignora si se llama desde un Server Component
+            // Se ignora el error si se llama desde un Server Component
           }
         },
       },
